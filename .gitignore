@@ -24,11 +24,13 @@
 *.sdf
 *.opensdf
 *.unsuccessfulbuild
+*.VC.opendb
 ipch/
 [Oo]bj/
 [Bb]in
 [Dd]ebug*/
 [Rr]elease*/
+Generated Files/
 Ankh.NoLoad
 
 #MonoDevelop
