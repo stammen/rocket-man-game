@@ -32,7 +32,7 @@ void HighScoreLayer::_popUpPlayer()
     //
     
     CCLabelTTF* title = CCLabelTTF::create("Change Player", "Arial", 18, CCSizeMake(250, 40), kCCTextAlignmentRight, kCCVerticalTextAlignmentCenter);
-    title->setColor(ccBLACK);
+    title->setColor(ccWHITE);
     title->setPosition(ccp(SCREEN_WIDTH * 0.2f, 200));
     
     //
@@ -91,7 +91,7 @@ HighScoreLayer::HighScoreLayer(int lastScore) : currentScore(lastScore)
     vector<string> vectorScores = split(highscores, "\n");
     if(vectorScores.size() > 0)
     {
-        for(int i = 0; i < vectorScores.size(); i++)
+        for(unsigned int i = 0; i < vectorScores.size(); i++)
         {
             vector<string> data = split(vectorScores[i], ";");
             if(data.size() > 0)
@@ -101,18 +101,18 @@ HighScoreLayer::HighScoreLayer(int lastScore) : currentScore(lastScore)
                 
                 CCLabelTTF* label1 = CCLabelTTF::create(CCString::createWithFormat("%d", (count + 1))->getCString(), "Arial", 14, CCSizeMake(30, 40), kCCTextAlignmentRight, kCCVerticalTextAlignmentCenter);
                 addChild(label1, 5);
-                label1->setColor(ccBLACK);
+                label1->setColor(ccWHITE);
                 label1->setOpacity(200);
                 label1->setPosition(ccp(15, start_y - count * step - 2.0f));
                 
                 CCLabelTTF* label2 = CCLabelTTF::create(player.c_str(), "Arial", 16, CCSizeMake(240, 40), kCCTextAlignmentLeft, kCCVerticalTextAlignmentCenter);
                 addChild(label2, 5);
-                label2->setColor(ccBLACK);
+                label2->setColor(ccWHITE);
                 label2->setPosition(ccp(160, start_y - count * step));
                 
                 CCLabelTTF* label3 = CCLabelTTF::create(CCString::createWithFormat("%d", score)->getCString(), "Arial", 16, CCSizeMake(290, 40), kCCTextAlignmentRight, kCCVerticalTextAlignmentCenter);
                 addChild(label3, 5);
-                label3->setColor(ccBLACK);
+                label3->setColor(ccWHITE);
                 label3->setOpacity(200);
                 label3->setPosition(ccp(160, start_y - count * step));
                 
@@ -183,7 +183,7 @@ void HighScoreLayer::_updateHighScores()
         vector<string> vectorScores = split(highscores, "\n");
         if(vectorScores.size() > 0)
         {
-            for(int i = 0; i < vectorScores.size(); i++)
+            for (unsigned int i = 0; i < vectorScores.size(); i++)
             {
                 vector<string> data = split(vectorScores[i], ";");
                 if(data.size() > 0)
@@ -201,18 +201,17 @@ void HighScoreLayer::_updateHighScores()
         
         if(currentScorePosition >= 0)
         {
-            int i;
             highscores = defaults->getStringForKey("highscores", "");
             vectorScores = split(highscores, "\n");
             CCString* dataScore = CCString::createWithFormat("%s;%d", currentPlayer.c_str(), currentScore);
 
             string tmpScore = "";
-            for(i = vectorScores.size() - 2; i > currentScorePosition; i--)
+            for (int i = vectorScores.size() - 2; i > currentScorePosition; i--)
                 vectorScores[i + 1] = vectorScores[i];
 
             vectorScores[currentScorePosition] = string(dataScore->getCString());
             string scores = "";
-            for(i = 0; i < vectorScores.size(); i++)
+            for(unsigned int i = 0; i < vectorScores.size(); i++)
                 scores += vectorScores[i]+"\n";
             
             defaults->setStringForKey("highscores", scores);
@@ -256,7 +255,7 @@ void HighScoreLayer::draw()
     ccDrawSolidRect(ccp(x,y), ccp(x+width, y+height), ccc4f(1.0f, 0.0f, 0.0f, 0.4f));
 }
 
-#ifdef WP8
+#if defined(WP8) || defined(WINRT)
 void HighScoreLayer::_changePlayerDone(CCObject* pObject)
 #else
 void HighScoreLayer::_changePlayerDone()
@@ -272,7 +271,7 @@ void HighScoreLayer::_changePlayerDone()
     
 }
 
-#ifdef WP8
+#if defined(WP8) || defined(WINRT)
 void HighScoreLayer::_cancelPopupPlayer(CCObject* pObject)
 #else
 void HighScoreLayer::_cancelPopupPlayer()

@@ -17,15 +17,11 @@ class MainLayer : public cocos2d::CCLayer
 public:
     
     MainLayer();
-    
-    void initCloud();
-    void initClouds();
-    void resetCloud();
-    void resetClouds();
-    virtual void update(float dt);
+
+    static cocos2d::CCScene* scene();
+	virtual void update(float dt);
     
 protected:
-    int currentCloudTag;
     
 };
 
