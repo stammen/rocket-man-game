@@ -14,6 +14,9 @@
 #include "GameConfig.h"
 #include "GameLayer.h"
 
+#include <string>
+#include <vector>
+
 USING_NS_CC;
 using namespace CocosDenshion;
 
@@ -34,6 +37,15 @@ bool AppDelegate::applicationDidFinishLaunching()
     
     CCEGLView::sharedOpenGLView()->setDesignResolutionSize(SCREEN_WIDTH, SCREEN_HEIGHT, kResolutionExactFit);
 
+    // add folder search paths to find the game's resources
+    std::vector<std::string> searchPath;
+    searchPath.push_back("Images");
+    searchPath.push_back("Fonts");
+    searchPath.push_back("Sounds");
+
+    // set search paths
+    CCFileUtils::sharedFileUtils()->setSearchPaths(searchPath);
+
     // turn on display FPS
     pDirector->setDisplayStats(DISPLAY_STATS);
 
@@ -41,6 +53,7 @@ bool AppDelegate::applicationDidFinishLaunching()
     pDirector->setAnimationInterval(1.0 / 60);
 
     // create a scene. it's an autorelease object
+    //CCScene *pScene = MainLayer::scene();
     CCScene *pScene = HighScoreLayer::scene(0);
     //CCScene *pScene = GameLayer::scene();
 
